@@ -32,6 +32,8 @@
 
                         {{-- checkbox --}}
                         <div class="form-group form-check">
+
+                            {{-- BUG nella funzione old  --}}
                             <input type="checkbox" class="form-check-input @error('published') is-invalid @enderror" id="published" name="published" {{old('published')}} ? 'checked' : ''>
                             <label class="form-check-label" for="published">Pubblica</label>  
                             @error('published')
