@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Post;
 
 class PostController extends Controller
@@ -27,7 +28,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -38,7 +39,44 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validazione dei dati
+        $request->validate([
+            'title' => 'required|string|max:100',
+            'content' => 'required',
+            'published' => 'sometimes|accepted'
+        ]);
+
+        // creazione del post
+        $data = $request->all();
+
+        //nuova istanza
+        $newPost = new Post();
+
+        //dati istanza
+        $newPost->title = $data['title'];
+        $newPost->content = $data['content'];
+        
+        if( isset($data['published']) ) {
+            $newPost->published = true;
+        }
+
+        //variabili per lo slug
+        $slug = Str::of($newPost->title)->slug("-");
+        $count = 1;
+
+        //ciclo slug
+        while( Post::where('slug', $slug)->first() ) {
+            $slug = Str::of($newPost->title)->slug("-") . "-$count";
+            $count++;
+        }
+
+        $newPost->slug = $slug;
+
+        //save
+        $newPost->save();
+
+        // redirect al post creato
+        return redirect()->route('posts.show', $newPost->id);
     }
 
     /**
@@ -47,9 +85,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
