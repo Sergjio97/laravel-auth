@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
 
-                    <div class="card-header">{{ __('Lista Posts') }}</div>
+                    <div class="card-header"><h3>Lista Post</h3></div>
 
                     <div class="card-body">
 
@@ -31,8 +31,20 @@
                                         <td>{{$post->id}}</td>
                                         <td>{{$post->title}}</td>
                                         <td>{{$post->slug}}</td>
+                                        {{-- azioni --}}
                                         <td><a href="{{route('posts.show', $post->id)}}"><button type="button" class="btn btn-primary">Visualizza</button></a></td>
                                         <td><a href="{{route('posts.edit', $post->id)}}"><button type="button" class="btn btn-warning">Modifica</button></a></td>
+                                        <td>
+                                            <form action="{{route('posts.destroy', $post->id)}}" method="POST">
+                                                {{-- token --}}
+                                                @csrf
+                                                {{-- method --}}
+                                                @method('DELETE')
+                        
+                                                <button type="submit" class="btn btn-danger">Cancella</button>
+                        
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

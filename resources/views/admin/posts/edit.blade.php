@@ -16,7 +16,7 @@
                         {{-- title --}}
                         <div class="form-group">
                             <label for="title">Titolo</label>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Inserisci il titolo del post" value="{{old('title') ? old('title') : $post->title}}">
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Inserisci il titolo del post" value="{{old('title', $post->title)}}">
                             @error('title')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -25,7 +25,7 @@
                         {{-- content --}}
                         <div class="form-group">
                             <label for="content">Contenuto</label>
-                            <textarea type="text" class="form-control @error('content') is-invalid @enderror" id="content" name="content" placeholder="Inserisci il Contenuto del post" rows="6">{{old('content' ? old('content') : $post->content)}}</textarea>
+                            <textarea type="text" class="form-control @error('content') is-invalid @enderror" id="content" name="content" placeholder="Inserisci il Contenuto del post" rows="6">{{old('content', $post->content)}}</textarea>
                             @error('content')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -47,7 +47,11 @@
                                                    
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Salva</button>
+                        {{-- azioni --}}
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-primary">Salva</button>
+                            <a href="{{route('posts.index')}}"><button type="button" class="btn btn-secondary">Torna ai Posts</button></a>
+                        </div>
 
                     </form>
 

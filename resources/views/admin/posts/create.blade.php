@@ -42,7 +42,11 @@
 
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Crea</button>
+                        {{-- azioni --}}
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-primary">Crea</button>
+                            <a href="{{route('posts.index')}}"><button type="button" class="btn btn-secondary">Torna ai Posts</button></a>
+                        </div>
 
                     </form>
 

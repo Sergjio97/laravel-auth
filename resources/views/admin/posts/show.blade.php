@@ -17,6 +17,21 @@
                         @endif
                     </div>
                     {{$post->content}}
+
+                    {{-- azioni --}}
+                    <div class="mt-3">
+                        <a href="{{route('posts.edit', $post->id)}}"><button type="button" class="btn btn-warning">Modifica</button></a>
+                        <a href="{{route('posts.index')}}"><button type="button" class="btn btn-secondary">Torna ai Posts</button></a>
+                        <form class="mt-3" action="{{route('posts.destroy', $post->id)}}" method="POST">
+                            {{-- token --}}
+                            @csrf
+                            {{-- method --}}
+                            @method('DELETE')
+    
+                            <button type="submit" class="btn btn-danger">Cancella</button>
+    
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
